@@ -94,6 +94,10 @@ h2 {
     font-size: 20px;
   }
 }
+/* Loads after bootstrap.min.css, so this zeroes Bootstrap's default
+   `p { margin-bottom: 1rem }`. Per-page layouts in M1+ should re-add
+   spacing locally (e.g. `.text-muted`, `.lead`, or container-scoped rules)
+   rather than relying on Bootstrap snippet defaults. */
 p {
   margin: 0;
 }
