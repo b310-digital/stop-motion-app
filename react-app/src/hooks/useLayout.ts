@@ -46,9 +46,6 @@ export function useLayout(): LayoutAPI {
     window.addEventListener('resize', update)
     window.addEventListener('orientationchange', update)
     mql.addEventListener('change', update)
-    // Re-read once on mount in case the viewport changed between the initial
-    // render and this effect running (StrictMode double-mount, hydration).
-    update()
     return () => {
       window.removeEventListener('resize', update)
       window.removeEventListener('orientationchange', update)

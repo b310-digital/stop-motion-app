@@ -8,6 +8,8 @@ interface LoadingOverlayProps {
   message?: string
 }
 
+const SPINNER_SIZE = 64
+
 export default function LoadingOverlay({
   visible,
   message,
@@ -26,7 +28,7 @@ export default function LoadingOverlay({
       aria-label={message ? undefined : label}
     >
       <div className={styles.content}>
-        <Spinner size={64} aria-label={label} />
+        <Spinner size={SPINNER_SIZE} aria-label={label} />
         {message ? (
           <p id={messageId} className={styles.message}>
             {message}
