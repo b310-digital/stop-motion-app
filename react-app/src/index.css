@@ -50,6 +50,9 @@
   }
 }
 
+/* Placeholder shell — gets replaced by per-page layouts in M1+. The fixed
+   width constrains any nested Bootstrap `.container` on viewports > 1126px;
+   drop or relax this rule once a real layout lands. */
 #root {
   width: 1126px;
   max-width: 100%;
