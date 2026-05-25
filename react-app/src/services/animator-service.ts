@@ -7,7 +7,7 @@ import { MimeTypes } from '@enums/mime-types.enum'
 import type { LayoutOptions } from '@interfaces/layout-options.interface'
 import type { Animator } from './animator'
 import type { MediaExportService } from './media-export-service'
-import type { LayoutAPI } from './layout-api'
+import type { LayoutDep } from './layout-api'
 import type { ToastAPI } from './toast-api'
 import type { TranslateAPI } from './translate-api'
 import type { ProgressCallback } from './types'
@@ -23,7 +23,7 @@ import type { ProgressCallback } from './types'
 export interface AnimatorServiceDeps {
   animator: Animator
   mediaExport: MediaExportService
-  layout: LayoutAPI
+  layout: LayoutDep
   toast: ToastAPI
   translate: TranslateAPI
 }
@@ -44,13 +44,19 @@ export class AnimatorService {
   }
 
   public removeFrames(index: number): void {
-    const frames = this.frames$.getValue()
-    frames.splice(index, 1)
-    this.frames$.next(frames)
+    this.deps.animator.frames.splice(index, 1)
+    this.deps.animator.frameWebpsAndJpegs.splice(index, 1)
+    this.publishFrames()
+  }
 
-    const frameWebpsAndJpegs = this.deps.animator.frameWebpsAndJpegs
-    frameWebpsAndJpegs.splice(index, 1)
-    this.deps.animator.frameWebpsAndJpegs = frameWebpsAndJpegs
+  // The Animator model mutates its frames array in place (push/pop/splice).
+  // BehaviorSubject would re-emit the same array reference; React's
+  // useSyncExternalStore short-circuits on Object.is, so consumers would never
+  // re-render after the first emission. Publishing a fresh snapshot per change
+  // gives the bridge a new identity to compare against. Removed in M6 (#23)
+  // when the model itself is rewritten to immutable state.
+  private publishFrames(): void {
+    this.frames$.next([...this.deps.animator.frames])
   }
 
   public async init(
@@ -71,8 +77,8 @@ export class AnimatorService {
   }
 
   public async capture(): Promise<void> {
-    const frames = await this.deps.animator.capture()
-    this.frames$.next(frames)
+    await this.deps.animator.capture()
+    this.publishFrames()
   }
 
   public hasMemoryCapacity(): boolean {
@@ -82,7 +88,7 @@ export class AnimatorService {
 
   public undoCapture(): void {
     const frames = this.deps.animator.undoCapture()
-    this.frames$.next(frames)
+    this.publishFrames()
     if (frames.length === 0) {
       this.deps.toast.show({
         message: this.deps.translate.instant('toast_animator_undo_hint'),
@@ -193,7 +199,7 @@ export class AnimatorService {
   public async load(file: Blob): Promise<void> {
     this.clear()
     await this.deps.animator.load(file)
-    this.frames$.next(this.deps.animator.frames)
+    this.publishFrames()
   }
 
   public formatTime(seconds: number): string {

@@ -7,7 +7,7 @@ import { MimeTypes } from '@enums/mime-types.enum'
 import { RecorderState } from '@enums/recorder-state.enum'
 import type { MediaExportService } from './media-export-service'
 import type { MediaImportService } from './media-import-service'
-import type { LayoutAPI } from './layout-api'
+import type { LayoutDep } from './layout-api'
 import type { ToastAPI } from './toast-api'
 import type { TranslateAPI } from './translate-api'
 
@@ -29,7 +29,7 @@ declare const webm: {
 export interface AnimatorDeps {
   toast: ToastAPI
   translate: TranslateAPI
-  layout: LayoutAPI
+  layout: LayoutDep
   mediaExport: MediaExportService
   mediaImport: MediaImportService
 }

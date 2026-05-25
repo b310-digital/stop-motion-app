@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { act, render, screen } from '@testing-library/react'
 import { useEffect, type ReactNode } from 'react'
 import ToastProvider from '../components/ToastProvider'
@@ -100,5 +100,65 @@ describe('useAnimatorStore', () => {
       service.rotateCamera()
     })
     expect(screen.getByTestId('rotated').textContent).toBe('true')
+  })
+
+  // Regression: AnimatorService used to splice frames$ in place and re-emit
+  // the same array reference, which useSyncExternalStore short-circuits via
+  // Object.is. This caused the thumbnail strip to freeze after the first
+  // delete. removeFrames now publishes a fresh snapshot via publishFrames().
+  it('re-renders after removeFrames mutates the frames array', () => {
+    const service = mountProbe()
+    act(() => {
+      service.animator.frames.push(new Image(), new Image(), new Image())
+      service.animator.frameWebpsAndJpegs.push(
+        new Blob(),
+        new Blob(),
+        new Blob(),
+      )
+      // Seed the published view from the model so the bridge starts in a
+      // known state with three frames.
+      service.frames$.next([...service.animator.frames])
+    })
+    expect(screen.getByTestId('frames').textContent).toBe('3')
+
+    act(() => {
+      service.removeFrames(1)
+    })
+    expect(screen.getByTestId('frames').textContent).toBe('2')
+    expect(service.animator.frames.length).toBe(2)
+    expect(service.animator.frameWebpsAndJpegs.length).toBe(2)
+  })
+
+  it('re-renders after undoCapture pops a frame from the model', () => {
+    const service = mountProbe()
+    // Single-frame setup so undoCapture takes the empty branch where the
+    // snapshot canvas redraw is optional-chained (snapshotContext is null
+    // pre-init); the publishFrames() path is what we want to exercise here.
+    act(() => {
+      service.animator.frames.push(new Image())
+      service.animator.frameWebpsAndJpegs.push(new Blob())
+      service.frames$.next([...service.animator.frames])
+    })
+    expect(screen.getByTestId('frames').textContent).toBe('1')
+
+    act(() => {
+      service.undoCapture()
+    })
+    expect(screen.getByTestId('frames').textContent).toBe('0')
+  })
+
+  // Without stable subscribe/getSnapshot callbacks, useSyncExternalStore
+  // resubscribes on every commit. Spying on BehaviorSubject.subscribe lets
+  // us verify the subscription is created once and survives unrelated
+  // re-renders triggered by other subjects.
+  it('keeps a single subscription across re-renders triggered by other subjects', () => {
+    const service = mountProbe()
+    const subscribeSpy = vi.spyOn(service.frames$, 'subscribe')
+    act(() => {
+      service.animator.setFramerate(12)
+      service.animator.setFramerate(15)
+      service.animator.isAnimatorPlaying$.next(true)
+    })
+    expect(subscribeSpy).not.toHaveBeenCalled()
   })
 })

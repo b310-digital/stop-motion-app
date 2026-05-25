@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from 'react'
+import { useCallback, useSyncExternalStore } from 'react'
 import type { BehaviorSubject } from 'rxjs'
 
 // Bridges an RxJS `BehaviorSubject` to React via `useSyncExternalStore`.
@@ -6,9 +6,15 @@ import type { BehaviorSubject } from 'rxjs'
 // drive React renders without rewriting the subject-based model. The bridge
 // itself is removed in M6 (issue #23) once each subject is migrated to
 // hook-local state or a Zustand store.
+//
+// `subscribe` and `getSnapshot` are memoised on the subject reference so
+// `useSyncExternalStore` keeps the same subscription across re-renders.
+// Without this, every parent re-render unsubscribes and resubscribes (six
+// times over from useAnimatorStore) which is wasteful and replays the seed
+// emission each cycle.
 export function useBehaviorSubject<T>(subject: BehaviorSubject<T>): T {
-  return useSyncExternalStore(
-    (listener) => {
+  const subscribe = useCallback(
+    (listener: () => void) => {
       // BehaviorSubject fires synchronously on subscribe with its current
       // value; `useSyncExternalStore` only wants notifications *after*
       // subscribe, so skip the seed emission to avoid spurious re-renders.
@@ -22,7 +28,10 @@ export function useBehaviorSubject<T>(subject: BehaviorSubject<T>): T {
       })
       return () => sub.unsubscribe()
     },
-    () => subject.getValue(),
-    () => subject.getValue(),
+    [subject],
   )
+
+  const getSnapshot = useCallback(() => subject.getValue(), [subject])
+
+  return useSyncExternalStore(subscribe, getSnapshot, getSnapshot)
 }

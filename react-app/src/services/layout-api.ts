@@ -7,7 +7,7 @@ import { IS_ANDROID, IS_IOS } from './user-agent'
 // viewport on demand (camera attach, canvas sizing) use this snapshot
 // helper so they remain framework-agnostic.
 
-export interface LayoutAPI {
+export interface LayoutDep {
   readonly isIOS: boolean
   readonly isAndroid: boolean
   current(): LayoutOptions
@@ -35,7 +35,7 @@ export function readLayoutSnapshot(): LayoutOptions {
   }
 }
 
-export const layoutAPI: LayoutAPI = {
+export const layoutAPI: LayoutDep = {
   isIOS: IS_IOS,
   isAndroid: IS_ANDROID,
   current: readLayoutSnapshot,
