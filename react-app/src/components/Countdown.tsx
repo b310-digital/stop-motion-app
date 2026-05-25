@@ -24,9 +24,9 @@ export default function Countdown({ from, onComplete }: CountdownProps) {
 
   useEffect(() => {
     const interval = window.setInterval(() => {
-      // Pure updater: decrement, clamp at 0. React 19 invokes updaters twice
-      // in dev to detect impurity, so the boundary side-effect must live in
-      // an effect, not here.
+      // State updater must stay pure: React invokes it twice in dev under
+      // StrictMode to detect impurity. The onComplete call lives in the
+      // effect below, gated on `counter === 0`.
       setCounter((c) => (c > 0 ? c - 1 : c))
     }, 1000)
     return () => window.clearInterval(interval)

@@ -3,10 +3,6 @@ import App from './App'
 import HomePage from './pages/HomePage'
 import SettingsPage from './pages/SettingsPage'
 
-// AnimatorPage carries the 813-LOC Animator model, gifenc, zip.js, file-saver
-// and the MediaExport/Import/Recording services. Split it out via react-router's
-// `lazy` route option so users who only visit '/' or '/settings' don't pay for
-// the media stack on first load.
 export const routes = [
   {
     path: '/',
@@ -14,6 +10,8 @@ export const routes = [
     children: [
       { index: true, Component: HomePage },
       {
+        // Lazy-loaded so the media stack stays out of the initial bundle for
+        // users who only visit '/' or '/settings'.
         path: 'animator',
         lazy: async () => {
           const { default: Component } = await import('./pages/AnimatorPage')
