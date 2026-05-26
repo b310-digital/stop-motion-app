@@ -33,7 +33,7 @@ coverage/
 .secretlintrc.json
 *.md
 
-# Exceptions: production build needs the NOTICES generator and the curated
-# third-party license summary. Keep the rest of scripts/ and *.md excluded.
+# Exception: the production build runs scripts/generate-notices.mjs to
+# produce NOTICES.txt before the image is assembled. Keep the rest of
+# scripts/ excluded.
 !scripts/generate-notices.mjs
-!THIRD_PARTY_LICENSES.md
