@@ -11,7 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **React 19** + **TypeScript** + **Vite**
 - **react-router-dom 7** for routing
 - **react-i18next** + `i18next-http-backend` (loads `public/assets/i18n/de.json`)
-- **Bootstrap 5** CSS for layout primitives (no Bootstrap JS)
+- CSS Modules per component (`*.module.css`) plus a global `src/index.css` for fonts and base styles — no CSS framework
 - **Zustand** for cross-component animator state (`src/stores/animator-store.ts`)
 - **pnpm** (via Corepack) on **Node 22**
 - **Vitest** + Testing Library + jsdom for unit tests
@@ -39,19 +39,6 @@ pnpm test:watch    # vitest watch mode
 
 - Test files use Vitest's default `*.test.ts` / `*.test.tsx` suffix.
 - Component tests use `@testing-library/react` + `@testing-library/jest-dom`, running in jsdom.
-
-### Docker
-
-```bash
-# Dev — Vite dev server, host port 5173 (override via DOCKER_COMPOSE_APP_PORT_PUBLISHED)
-docker compose up -d
-docker compose exec app bash
-
-# Production — nginx-unprivileged serving dist/ on host port 8080
-docker compose -f docker-compose.prod.yml up -d
-```
-
-The Dockerfile is multi-stage: `builder` runs `pnpm install --frozen-lockfile` and `pnpm build`; `production` is `nginxinc/nginx-unprivileged` serving `dist/` via `config/nginx/default.conf`.
 
 ## Architecture
 

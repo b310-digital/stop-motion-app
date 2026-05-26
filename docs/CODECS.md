@@ -132,5 +132,5 @@ WASM media library or server-side codec is involved.
 
 ## Related
 
-- [Third-Party Licenses](../THIRD_PARTY_LICENSES.md)
+- [NOTICES](../NOTICES.txt) — third-party attribution
 - [WebM Container Specification](https://www.webmproject.org/docs/container/)
