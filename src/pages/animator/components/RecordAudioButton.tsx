@@ -29,7 +29,14 @@ export default function RecordAudioButton() {
     await service.recordAudio()
   }
 
+  const isRecording = service.isRecordingAudio
+
   const onClick = () => {
+    if (isRecording) {
+      // Skip the countdown that startRecord() would queue.
+      void service.recordAudio()
+      return
+    }
     if (frames.length === 0) {
       toast.show({ message: t('toast_animator_record_audio_hint') })
       return
@@ -48,9 +55,13 @@ export default function RecordAudioButton() {
           },
           {
             text: t('buttons_record_audio'),
-            handler: async () => {
+            // Defer so the alert (top-layer <dialog>) unmounts before the
+            // countdown renders — otherwise it hides behind the dialog.
+            handler: () => {
               service.clearAudio()
-              await startRecord()
+              setTimeout(() => {
+                void startRecord()
+              }, 0)
             },
           },
         ],
@@ -64,8 +75,9 @@ export default function RecordAudioButton() {
     <>
       <button
         type="button"
-        className={styles.button}
+        className={`${styles.button} ${isRecording ? styles.recording : ''}`}
         aria-label={t('labels_record_audio')}
+        aria-pressed={isRecording}
         data-testid="record-audio-button"
         onClick={onClick}
       >
