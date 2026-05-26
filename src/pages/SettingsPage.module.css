@@ -1,6 +1,6 @@
 .hero {
-  background-color: #00a3d3;
-  padding: 1.5rem 1rem;
+  background-color: var(--color-accent);
+  padding: var(--space-6) var(--space-4);
   text-align: center;
 }
 
@@ -13,24 +13,25 @@
 }
 
 .section {
-  padding: 1rem 0;
+  padding: var(--space-4) 0;
 }
 
 .listHeadline {
-  font-size: 19px;
-  font-weight: 400;
-  margin: 1rem 0;
-  padding-left: 1rem;
+  font-size: var(--text-lg);
+  /* 300, not 400 — matches the FiraSans Light glyphs the legacy loaded. */
+  font-weight: 300;
+  margin: var(--space-4) 0;
+  padding-left: var(--space-4);
 }
 
 .linkList {
   list-style: none;
-  margin: 1rem 0;
+  margin: var(--space-4) 0;
   padding: 0;
 }
 
 .linkList li {
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--color-neutral-200);
 }
 
 .link {
@@ -38,20 +39,20 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 16px;
-  padding: 1rem;
+  font-size: var(--text-base);
+  padding: var(--space-4);
   text-decoration: none;
 }
 
 .link::after {
   content: '';
   display: inline-block;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-top: 2px solid #c0c0c0;
-  border-right: 2px solid #c0c0c0;
+  width: var(--space-2);
+  height: var(--space-2);
+  border-top: 2px solid var(--color-neutral-300);
+  border-right: 2px solid var(--color-neutral-300);
   transform: rotate(45deg);
-  margin-left: 0.5rem;
+  margin-left: var(--space-2);
   flex-shrink: 0;
 }
 
