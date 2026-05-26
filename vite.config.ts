@@ -72,7 +72,12 @@ export default defineConfig({
   // host: true binds 0.0.0.0 so phones on the LAN can connect via the
   // self-signed HTTPS cert from basicSsl: getUserMedia requires a secure
   // context on any URL other than localhost.
-  server: { host: true },
+  server: {
+    host: true,
+    // chokidar ignores node_modules by default but not .pnpm-store, which can
+    // be ~500 MB at the project root and otherwise exhausts inotify watches.
+    watch: { ignored: ['**/.pnpm-store/**'] },
+  },
   resolve: {
     // Keep in sync with tsconfig.app.json `paths`.
     alias: {
