@@ -2,9 +2,9 @@ name: frontend_on_push_branch_execute_ci_cd
 
 on:
   push:
-    branches: [main, react-migration]
+    branches: [main]
   pull_request:
-    branches: [main, react-migration]
+    branches: [main]
 
 env:
   NODE_VERSION: "22.20"

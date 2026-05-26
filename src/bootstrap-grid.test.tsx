@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import bootstrapPkg from 'bootstrap/package.json'
 // `?raw` pulls the entry-point source as a string at bundle time. Vitest
-// inherits vite.config, and `css: false` only stubs CSS imports — `.tsx?raw`
+// inherits vite.config, and `css: false` only stubs CSS imports: `.tsx?raw`
 // is passed through. This is the only smoke that actually fails if a future
 // PR removes the bootstrap CSS import from main.tsx.
 import mainTsxSource from './main.tsx?raw'

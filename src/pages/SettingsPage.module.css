@@ -18,7 +18,7 @@
 
 .listHeadline {
   font-size: var(--text-lg);
-  /* 300, not 400 — matches the FiraSans Light glyphs the legacy loaded. */
+  /* 300 to match the FiraSans Light glyphs registered in src/index.css. */
   font-weight: 300;
   margin: var(--space-4) 0;
   padding-left: var(--space-4);

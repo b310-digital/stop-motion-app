@@ -1,7 +1,7 @@
 {
   "name": "stop-motion-app",
   "version": "2.0.3",
-  "description": "StopClip — client-side PWA for creating stop-motion animations.",
+  "description": "StopClip: client-side PWA for creating stop-motion animations.",
   "author": "kits - Kompetent in Technik und Sprache",
   "homepage": "https://kits.blog/",
   "license": "AGPL-3.0-or-later",
