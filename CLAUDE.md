@@ -15,7 +15,7 @@ Forked from the kits GitLab repo, originally inspired by [szager/stop-motion](ht
 - **react-i18next** + `i18next-http-backend` (loads `public/assets/i18n/de.json`)
 - **Bootstrap 5** CSS for layout primitives (no Bootstrap JS)
 - **Zustand** for the Animator state store (`src/stores/animator-store.ts`)
-- **pnpm** (via Corepack) on **Node 22**
+- **pnpm 10.33.4** (via Corepack) on **Node 24**
 - **Vitest** + Testing Library + jsdom for unit tests
 - **vite-plugin-pwa** (Workbox) for the service worker and web app manifest
 - Media stack: native **MediaRecorder** (VP8 + Opus in WebM, see ADR 0001), **gifenc**, **@zip.js/zip.js**, **file-saver**, **Swiper** for the thumbnail carousel
