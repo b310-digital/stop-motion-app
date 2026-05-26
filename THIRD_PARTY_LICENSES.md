@@ -1,20 +1,21 @@
 # Third-Party Licenses
 
-This document lists third-party libraries and their licenses used in the StopClip application, with a focus on codec-related dependencies.
+StopClip is released under the GNU Affero General Public License v3.0
+(`AGPL-3.0-or-later`). This document records the third-party libraries that
+participate in the media pipeline — capture, encoding, packaging, and download
+— together with their licenses and roles. All other runtime and tooling
+dependencies are declared in `package.json`; their full license set can be
+inspected with `pnpm licenses list`.
 
-The original Stop Motion Animator by [szager](https://github.com/szager/stop-motion) (BSD-0) inspired this project; no szager-authored code remains in the current React rewrite, but the attribution is preserved here for historical reference.
-
-## Codec-Related Dependencies
+## Media-pipeline dependencies
 
 ### gifenc
 
-**Version:** 1.0.3  
-**License:** MIT License  
-**Purpose:** Generates GIF animations client-side during export  
-**Source:** https://github.com/mattdesl/gifenc  
-**Author:** Matt DesLauriers
-
-**License Text:**
+- **Role:** client-side GIF encoder; quantises frames and writes the GIF
+  bitstream used by `MediaExportService.createGif`.
+- **License:** MIT
+- **Source:** https://github.com/mattdesl/gifenc
+- **Copyright:** © 2017 Matt DesLauriers
 
 ```
 MIT License
@@ -38,43 +39,71 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-### FiraSans
+### @zip.js/zip.js
 
-Bundled under `public/assets/kits/font/firasans/`.
+- **Role:** reads and writes the `.zip` project draft container
+  (`MediaImportService`, `draft-export.ts`).
+- **License:** BSD-3-Clause
+- **Source:** https://github.com/gildas-lormeau/zip.js
+- **Copyright:** © 2023 Gildas Lormeau
 
-**License:** SIL Open Font License, Version 1.1  
-**Source:** https://github.com/mozilla/Fira  
-**License file:** `public/assets/kits/font/firasans/SIL Open Font License.txt`
+```
+BSD 3-Clause License
 
-## Image and Video Codecs
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
 
-The application uses the following codecs:
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
 
-### Image Formats
-- **JPEG:** Used for initial frame capture from canvas (quality: 0.8)
-- **WebP:** Used for internal storage and processing (better compression, maintained quality)
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
 
-### Video Formats
-- **WebM:** Container format
-- **VP8:** Video codec via the browser's MediaRecorder implementation, forced per [ADR 0001](docs/adr/0001-force-vp8-exports.md)
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
 
-### Audio Formats
-- **Opus:** Audio codec in the WebM container
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+```
 
-## Browser Compatibility
+### file-saver
 
-All codecs used are supported by modern browsers:
-- **WebP:** Supported in Chrome 23+, Firefox 65+, Safari 14+, Edge 18+
-- **WebM/VP8:** Supported in Chrome 6+, Firefox 4+, Safari 14.1+, Edge 79+
-- **Opus:** Supported in Chrome 33+, Firefox 15+, Safari 11+, Edge 14+
+- **Role:** triggers browser downloads for exported videos, GIFs, and drafts.
+- **License:** MIT
+- **Source:** https://github.com/eligrey/FileSaver.js
 
-## License Compatibility
+## Browser-native components
 
-All third-party licenses are compatible with the GNU Affero General Public License v3 (AGPL-3.0) under which this project is licensed:
+The remainder of the pipeline is provided by standard Web APIs and therefore
+carries no third-party license obligation: `<canvas>` (frame rendering),
+`MediaRecorder` (WebM/VP8 video and WebM/Opus audio encoding), `AudioContext`
+(audio decoding and remuxing), `createImageBitmap` and `URL.createObjectURL`
+(frame decoding and download URLs), and the Workbox-generated service worker
+shipped by `vite-plugin-pwa`.
 
-- **MIT License:** Permissive, GPL-compatible
-- **SIL Open Font License 1.1:** GPL-compatible for embedded fonts
+The video and audio codecs themselves — VP8, Opus, WebP, WebM — are
+royalty-free and require no per-distribution license.
 
-## Additional Dependencies
+## Project heritage
 
-For a complete list of dependencies and their licenses, refer to `package.json` and run `pnpm licenses list`.
+StopClip is a fork of the [kits stop-motion-app](https://gitlab.com/kits-apps/stop-motion-app),
+which in turn was inspired by [Stop Motion Animator](https://github.com/szager/stop-motion)
+by szager (BSD-0). No code from the original upstream project remains in the
+React rewrite, but the attribution is preserved here in keeping with the
+spirit of the BSD-0 license.
+
+## License compatibility
+
+The licenses listed above (MIT, BSD-3-Clause, BSD-0) are permissive and
+compatible with redistribution under the AGPL-3.0-or-later terms of this
+project.
