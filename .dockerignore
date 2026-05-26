@@ -33,7 +33,7 @@ coverage/
 .secretlintrc.json
 *.md
 
-# Exception: the production build runs scripts/generate-notices.mjs to
-# produce NOTICES.txt before the image is assembled. Keep the rest of
-# scripts/ excluded.
+# Exception: the build regenerates NOTICES.txt from the installed
+# node_modules; falls back to the committed NOTICES.txt if the script
+# fails. Keep the rest of scripts/ excluded.
 !scripts/generate-notices.mjs
