@@ -30,6 +30,38 @@
   filter: brightness(0) invert(1);
 }
 
+.captureButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  height: 56px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.captureButton:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -2px;
+}
+
+.captureButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.captureIcon {
+  width: 56px;
+  height: 56px;
+  display: block;
+  pointer-events: none;
+  filter: brightness(0) invert(1);
+}
+
 .animated {
   animation: capture-flash 500ms ease-out;
 }

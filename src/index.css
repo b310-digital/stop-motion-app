@@ -1,5 +1,27 @@
+@font-face {
+  font-family: 'FiraSans';
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url('/assets/kits/font/firasans/FiraSans-Light.otf') format('opentype');
+}
+@font-face {
+  font-family: 'FiraSans';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/assets/kits/font/firasans/FiraSans-Regular.otf') format('opentype');
+}
+@font-face {
+  font-family: 'FiraSans';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('/assets/kits/font/firasans/FiraSans-Bold.otf') format('opentype');
+}
+
 :root {
-  --text: #6b6375;
+  --text: #212529;
   --text-h: #08060d;
   --bg: #fff;
   --border: #e5e4e7;
@@ -11,12 +33,11 @@
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --sans: 'FiraSans', system-ui, 'Segoe UI', Roboto, sans-serif;
+  --heading: 'FiraSans', system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
+  font-family: var(--sans);
   color-scheme: light dark;
   color: var(--text);
   background: var(--bg);
@@ -24,10 +45,6 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -50,15 +67,8 @@
   }
 }
 
-/* Placeholder shell — gets replaced by per-page layouts in M1+. The fixed
-   width constrains any nested Bootstrap `.container` on viewports > 1126px;
-   drop or relax this rule once a real layout lands. */
 #root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
+  width: 100%;
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -67,6 +77,9 @@
 
 body {
   margin: 0;
+  font-family: var(--sans);
+  font-size: 17px;
+  color: var(--text);
 }
 
 h1,
@@ -77,29 +90,21 @@ h2 {
 }
 
 h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
+  font-size: 2.5rem;
+  margin: 0 0 0.5rem;
 }
 h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
+  font-size: 2rem;
+  margin: 0 0 0.5rem;
 }
-/* Loads after bootstrap.min.css, so this zeroes Bootstrap's default
-   `p { margin-bottom: 1rem }`. Per-page layouts in M1+ should re-add
-   spacing locally (e.g. `.text-muted`, `.lead`, or container-scoped rules)
-   rather than relying on Bootstrap snippet defaults. */
 p {
   margin: 0;
+  font-weight: 300;
+  font-size: 16px;
+}
+
+li {
+  font-size: 1rem;
 }
 
 code,

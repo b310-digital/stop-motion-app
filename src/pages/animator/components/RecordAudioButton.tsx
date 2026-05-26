@@ -5,7 +5,7 @@ import { useAlert } from '../../../hooks/useAlert'
 import { useAnimator } from '../../../hooks/useAnimator'
 import { useAnimatorStore } from '../../../hooks/useAnimatorStore'
 import { useToast } from '../../../hooks/useToast'
-import styles from './ToolbarButton.module.css'
+import styles from './TabBarButton.module.css'
 
 export default function RecordAudioButton() {
   const { t } = useTranslation()

@@ -52,7 +52,6 @@
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  margin-bottom: 0.5rem;
 }
 
 /* ---------- content panel ---------- */
@@ -70,28 +69,32 @@
   display: flex;
   justify-content: flex-end;
   padding-top: 0.75rem;
+  min-height: 100px;
 }
 
 .kitsLogo img {
-  height: 2.5rem;
+  height: 4.5rem;
   width: auto;
   display: block;
 }
 
 .callToAction {
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   padding: 1rem 0;
+  margin-top: 1.5rem;
   max-width: 36rem;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .title {
   font-weight: 700;
   margin-bottom: 1rem;
+  color: #00456f;
 }
 
 .title a {
@@ -101,25 +104,27 @@
 
 .bullets {
   list-style: none;
-  padding: 0;
+  padding: 0 0 0 7px;
   margin: 0 0 1rem 0;
+  border-left: 3px solid #00a3d3;
 }
 
 .bullets li {
   padding-bottom: 0.5rem;
+  font-weight: 300;
 }
 
 .cta {
   margin-top: 1rem;
-  background-color: #00a3d3;
-  border-color: #00a3d3;
+  background-color: #00456f;
+  border-color: #00456f;
   color: #ffffff;
 }
 
 .cta:hover,
 .cta:focus {
-  background-color: #008fba;
-  border-color: #008fba;
+  background-color: #003a5c;
+  border-color: #003a5c;
   color: #ffffff;
 }
 
@@ -139,13 +144,13 @@
   z-index: 10;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, #00a3d3 0%, #008fba 100%);
+  background: linear-gradient(180deg, #00456f 0%, #00a3d3 100%);
   padding: 0.5rem 1rem;
 }
 
 .mobileFooterLogo {
   flex: 0 0 auto;
-  width: 3rem;
+  width: 5rem;
 }
 
 .mobileFooterLogo img {
@@ -175,8 +180,8 @@
     left: 0;
     width: 50%;
     height: var(--app-height, 100vh);
-    background: linear-gradient(135deg, #00a3d3 0%, #008fba 100%);
-    padding: 2rem 1rem;
+    background: linear-gradient(180deg, #00456f 0%, #00a3d3 100%);
+    padding: 2rem 1rem 0;
     z-index: 1;
   }
 
@@ -184,6 +189,12 @@
     margin-left: 50%;
     width: 50%;
     padding-bottom: 1rem; /* no mobile footer to clear */
+  }
+
+  .callToAction {
+    flex: 1 1 auto;
+    justify-content: center;
+    margin-top: 0;
   }
 
   .mobileFooter {

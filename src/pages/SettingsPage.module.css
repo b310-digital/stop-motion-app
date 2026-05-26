@@ -1,6 +1,6 @@
 .hero {
   background-color: #00a3d3;
-  padding: 2rem 1rem;
+  padding: 1.5rem 1rem;
   text-align: center;
 }
 
@@ -9,6 +9,7 @@
   margin: 0 auto;
   max-width: 220px;
   width: 100%;
+  height: auto;
 }
 
 .section {
@@ -17,7 +18,7 @@
 
 .listHeadline {
   font-size: 19px;
-  font-weight: bold;
+  font-weight: 400;
   margin: 1rem 0;
   padding-left: 1rem;
 }
@@ -32,16 +33,26 @@
   border-bottom: 1px solid #e0e0e0;
 }
 
-.linkList li:first-child {
-  border-top: 1px solid #e0e0e0;
-}
-
 .link {
   color: #333;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   font-size: 16px;
   padding: 1rem;
   text-decoration: none;
+}
+
+.link::after {
+  content: '';
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-top: 2px solid #c0c0c0;
+  border-right: 2px solid #c0c0c0;
+  transform: rotate(45deg);
+  margin-left: 0.5rem;
+  flex-shrink: 0;
 }
 
 .link:hover,
