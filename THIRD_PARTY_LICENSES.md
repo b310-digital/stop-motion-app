@@ -81,15 +81,45 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - **Role:** triggers browser downloads for exported videos, GIFs, and drafts.
 - **License:** MIT
 - **Source:** https://github.com/eligrey/FileSaver.js
+- **Copyright:** © 2016 Eli Grey
+
+```
+MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### vite-plugin-pwa (Workbox)
+
+- **Role:** generates the PWA service worker and web app manifest; the
+  resulting bundle ships the `workbox-window` runtime to the client.
+- **License:** MIT (plugin); the bundled Workbox runtime is MIT.
+- **Source:** https://github.com/vite-pwa/vite-plugin-pwa,
+  https://github.com/GoogleChrome/workbox
 
 ## Browser-native components
 
 The remainder of the pipeline is provided by standard Web APIs and therefore
 carries no third-party license obligation: `<canvas>` (frame rendering),
 `MediaRecorder` (WebM/VP8 video and WebM/Opus audio encoding), `AudioContext`
-(audio decoding and remuxing), `createImageBitmap` and `URL.createObjectURL`
-(frame decoding and download URLs), and the Workbox-generated service worker
-shipped by `vite-plugin-pwa`.
+(audio decoding and remuxing), and `createImageBitmap` /
+`URL.createObjectURL` (frame decoding and download URLs).
 
 The video and audio codecs themselves — VP8, Opus, WebP, WebM — are
 royalty-free and require no per-distribution license.
@@ -104,6 +134,7 @@ spirit of the BSD-0 license.
 
 ## License compatibility
 
-The licenses listed above (MIT, BSD-3-Clause, BSD-0) are permissive and
-compatible with redistribution under the AGPL-3.0-or-later terms of this
-project.
+The licenses listed above (MIT, BSD-3-Clause) are permissive and compatible
+with redistribution under the AGPL-3.0-or-later terms of this project. The
+upstream attribution in the heritage section above refers to BSD-0-licensed
+code that no longer ships with the React rewrite.

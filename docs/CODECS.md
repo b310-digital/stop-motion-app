@@ -133,5 +133,4 @@ WASM media library or server-side codec is involved.
 ## Related
 
 - [Third-Party Licenses](../THIRD_PARTY_LICENSES.md)
-- [ADR 0001: Force VP8 WebM exports](adr/0001-force-vp8-exports.md)
 - [WebM Container Specification](https://www.webmproject.org/docs/container/)

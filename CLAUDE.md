@@ -40,6 +40,19 @@ pnpm test:watch    # vitest watch mode
 - Test files use Vitest's default `*.test.ts` / `*.test.tsx` suffix.
 - Component tests use `@testing-library/react` + `@testing-library/jest-dom`, running in jsdom.
 
+### Docker
+
+```bash
+# Dev — Vite dev server, host port 5173 (override via DOCKER_COMPOSE_APP_PORT_PUBLISHED)
+docker compose up -d
+docker compose exec app bash
+
+# Production — nginx-unprivileged serving dist/ on host port 8080
+docker compose -f docker-compose.prod.yml up -d
+```
+
+The Dockerfile is multi-stage: `builder` runs `pnpm install --frozen-lockfile` and `pnpm build`; `production` is `nginxinc/nginx-unprivileged` serving `dist/` via `config/nginx/default.conf`.
+
 ## Architecture
 
 ### Module layout
